@@ -1,6 +1,6 @@
 # ProyectoLenguajes_LR0_2022-1
 
-# Ejemplos
+# Ejemplos LR(0)
 
 S->dA <br />
 S->aB <br />
