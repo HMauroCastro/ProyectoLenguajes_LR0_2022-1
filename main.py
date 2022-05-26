@@ -38,36 +38,39 @@ canvas_principal.place(x=0, y=0)
 
 # Insertar la gramática
 lblGramatica = Label(canvas_principal, fg="white", bg="#2E065E", width=18, text="Gramática",
-                  font=("Comic Sans MS", 16)).place(x=75, y=20)
+                     font=("Arial", 16)).place(x=75, y=20)
 
-textGramatica = scrolledtext.ScrolledText(ventana, wrap=tk.WORD, width=23, height=9, font=("Comic Sans MS", 15))
+textGramatica = scrolledtext.ScrolledText(
+    ventana, wrap=tk.WORD, width=23, height=9, font=("Arial", 15))
 textGramatica.grid(column=0, row=0, padx=40, pady=60)
 textGramatica.focus()
 
 # Muestra información de la gramatica leida
-lstGramaticaLeida = scrolledtext.ScrolledText(ventana, fg="white", bg="#2E065E", width=33, height=11, font=("Comic Sans MS", 10),
-                            highlightbackground="white")
+lstGramaticaLeida = scrolledtext.ScrolledText(ventana, fg="white", bg="#2E065E", width=35, height=12, font=(
+    "Arial", 10), relief="solid", highlightbackground="white", highlightthickness=2)
 lstGramaticaLeida.place(x=35, y=410)
 
 # Muestra información de los estados
-lstEstados = scrolledtext.ScrolledText(ventana, fg="white", bg="#2E065E", width=33, height=15, font=("Comic Sans MS", 10),
-                     highlightbackground="white")
+lstEstados = scrolledtext.ScrolledText(ventana, fg="white", bg="#2E065E", width=33, height=16, font=(
+    "Arial", 10), relief="solid", highlightbackground="white", highlightthickness=2)
 lstEstados.place(x=380, y=20)
 
 # Muestra información de las transiciones
-lstTransiciones = scrolledtext.ScrolledText(ventana, fg="white", bg="#2E065E", width=33, height=15, font=("Comic Sans MS", 10),
-                          highlightbackground="white")
-lstTransiciones.place(x=380, y=350)
+lstTransiciones = scrolledtext.ScrolledText(ventana, fg="white", bg="#2E065E", width=33, height=16, font=(
+    "Arial", 10), relief="solid", highlightbackground="white", highlightthickness=2)
+lstTransiciones.place(x=380, y=340)
 
 # Muestra la tabla sintáctica
-lstTablaSintactica = Label(ventana, fg="white", bg="#2E065E", width=300, height=30, font=("Comic Sans MS", 9),
-                             highlightbackground="white")
+lstTablaSintactica = scrolledtext.ScrolledText(
+    ventana, fg="white", bg="#2E065E", width=75, height=38, relief="solid", highlightbackground="white", highlightthickness=2)
 lstTablaSintactica.place(x=700, y=20)
 
 
 """---------------------------------- Funciones -------------------------------------------"""
 
 # Leer gramatica desde el input
+
+
 def leerGramatica():
     gram = textGramatica.get(1.0, END).split('\n')
     gram.remove('')
@@ -80,11 +83,11 @@ def leerGramatica():
 # Mostrar la gramática leída
 def mostrarGramaticaLeida():
     lstGramaticaLeida.delete(1.0, END)
-    lstGramaticaLeida.insert(END, f"       ------------- Gramática leída ----------")
+    lstGramaticaLeida.insert(
+        END, f"       ------------- Gramática leída ----------")
     for gram in gramaticaLeida:
         lstGramaticaLeida.insert(END, "\n\n " + gram)
     lstGramaticaLeida.configure(state='disabled')
-
 
 
 #  Dividir terminales y no terminales
@@ -229,7 +232,8 @@ def mostrarTransiciones():
     lstTransiciones.delete(1.0, END)
     lstTransiciones.insert(END, f"      -------- Transiciones --------")
     for f in transiciones:
-        lstTransiciones.insert(END, "\n\n Transición (I{0} -> I{2}) = {1}".format(f[0], f[1], f[2]))
+        lstTransiciones.insert(
+            END, "\n\n Transición (I{0} -> I{2}) = {1}".format(f[0], f[1], f[2]))
     lstTransiciones.configure(state='disabled')
 
 
@@ -297,25 +301,18 @@ def mostrarTablaSintactica():
 
     tabla.insert(0, terminales + noTerminales)
     numerosFila = list(range(len(estados)))
-    numerosFila.insert(0,'ESTADOS')
+    numerosFila.insert(0, 'ESTADOS')
 
-    print(tabulate(tabla,
-                   headers=header + header2,
-                   tablefmt='fancy_grid',
-                   stralign='center',
-                   floatfmt='.0f',
-                   showindex=numerosFila))
-
-
-    '''lstTablaSintactica.insert(END, f" ------------- Tabla Sintáctica --------\n")
-    lstTablaSintactica.insert(END,tabulate(tabla,
-                   headers=header + header2,
-                   tablefmt='fancy_grid',
-                   stralign='center',
-                   floatfmt='.0f',
-                   showindex=numerosFila))
-'''
-
+    lstTablaSintactica.delete(1.0, END)
+    lstTablaSintactica.insert(
+        END, f"         ------------- Tabla Sintáctica ----------\n\n")
+    lstTablaSintactica.insert(END, tabulate(tabla,
+                                            headers=header + header2,
+                                            tablefmt='fancy_grid',
+                                            stralign='center',
+                                            floatfmt='.0f',
+                                            showindex=numerosFila))
+    lstTablaSintactica.configure(state='disabled')
 
 
 # Saber si la gramatica es LR(0)
@@ -346,7 +343,6 @@ def estaEnGramatica(nuevaGramatica):
     return -1
 
 
-
 # Iniciar el Programa, lo activa el boton "iniciar"
 def iniciarPrograma():
     if len(textGramatica.get(1.0, END)) == 1:
@@ -367,14 +363,12 @@ def iniciarPrograma():
 '''---------------------------------------- Botonera -----------------------------------------'''
 
 # Este botón inicia el programa:
-btn_Iniciar = Button(ventana, fg="white", bg="#1E6F4A", width=15, text="Iniciar", state="normal", font=("Comic Sans MS", 10),
+btn_Iniciar = Button(ventana, fg="white", bg="#1E6F4A", width=15, text="Iniciar", state="normal", font=("Arial", 10),
                      command=iniciarPrograma)
 btn_Iniciar.place(x=40, y=350)
 
 # Este botón termina el programa:
-btn_Salir = Button(canvas_principal, fg="white", bg="#1E6F4A", width=15, text="Salir", font=("Comic Sans MS", 10),
+btn_Salir = Button(canvas_principal, fg="white", bg="#1E6F4A", width=15, text="Salir", font=("Arial", 10),
                    command=sys.exit).place(x=200, y=350)
 
 ventana.mainloop()
-
-
